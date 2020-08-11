@@ -42,5 +42,11 @@ jobs:
           asset_name: ${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
           asset_content_type: application/zip
       - name: add release to plugin repo
-        run: |
-          curl -XPOST -u "${{ secrets.USERNAME }}:${{ secrets.TOKEN }}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/spinnaker-plugin-examples/examplePluginRepository/dispatches --data "{\"event_type\": \"onPluginRelease\", \"client_payload\": {\"org\": \"spinnaker-plugin-examples\", \"repo\": \"${{ steps.get_project_info.outputs.PROJECT }}\", \"released\": $(cat build/distributions/plugin-info.json)}}"  
+        id: add-release
+        uses: danielpeach/metadata-sync@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          metadata: build/distributions/plugin-info.json
+          binaryUrl: https://github.com/$GITHUB_REPOSITORY/releases/download/${{ steps.get_project_info.outputs.VERSION }}/${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
+          metadataRepoUrl: https://github.com/danielpeach/examplePluginRepository
