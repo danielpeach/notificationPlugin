@@ -45,7 +45,7 @@ jobs:
         id: add-release
         uses: danielpeach/metadata-sync@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         with:
           metadata: build/distributions/plugin-info.json
           binaryUrl: https://github.com/$GITHUB_REPOSITORY/releases/download/${{ steps.get_project_info.outputs.VERSION }}/${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
