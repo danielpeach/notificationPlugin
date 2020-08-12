@@ -49,5 +49,5 @@ jobs:
           GITHUB_OAUTH: ${{ secrets.TOKEN }}
         with:
           metadata: build/distributions/plugin-info.json
-          binaryUrl: https://github.com//${{ steps.get_project_info.outputs.REPO }}/releases/download/${{ steps.get_project_info.outputs.VERSION }}/${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
-          metadataRepoUrl: https://github.com/danielpeach/examplePluginRepository
+          binary_url: https://github.com/${{ steps.get_project_info.outputs.REPO }}/releases/download/${{ steps.get_project_info.outputs.VERSION }}/${{ steps.get_project_info.outputs.PROJECT }}-${{ steps.get_project_info.outputs.VERSION }}.zip
+          metadata_repo_url: https://github.com/danielpeach/examplePluginRepository
